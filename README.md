@@ -55,21 +55,21 @@ Upon reboot, pfSense will prompt you to assign network interfaces.
 
 1. *VLANs set up?* Enter `n`.
 2. *Enter the WAN interface name:* Type `vtnet0` and press `Enter`.
-   ![Assign WAN](image_823aea.png)
+   ![Assign WAN](Pasted%20image%2020260807235645.png)
 
 3. *Enter the LAN interface name:* Type `vtnet1` and press `Enter`.
-   ![Assign LAN](image_823aee.png)
+   ![Assign LAN](Pasted%20image%2020260807235714.png)
 
 4. *Enter the Optional 1 interface name:* Press `Enter` to skip. We are building a single-subnet environment, so no optional interfaces are needed.
-   ![Skip OPT1](image_823af1.png)
+   ![Skip OPT1](Pasted%20image%2020260807235818.png)
 
 5. *Enter the Optional 2 interface name:* Press `Enter` to skip again.
-   ![Skip OPT2](image_823b09.png)
+   ![Skip OPT2](Pasted%20image%2020260807235859.png)
 
 6. The system will display the assigned interfaces. Verify WAN is mapped to `vtnet0` and LAN is mapped to `vtnet1`. *Proceed?* Type `y`.
    
    > **Note:** Depending on your Proxmox VM configuration, you might see extra interfaces like `OPT1` or `OPT2`. If you are only configuring a WAN and a single LAN, you can safely ignore them.
-   ![Verify Interfaces](image_823b49.png)
+   ![Verify Interfaces](Pasted%20image%2020260807235919.png)
 
 ---
 
@@ -77,40 +77,40 @@ Upon reboot, pfSense will prompt you to assign network interfaces.
 We will now configure a custom subnet (e.g., `192.168.20.1/24`) and enable the DHCP server for the LAN.
 
 1. From the main pfSense menu, enter option `2` (Set interface(s) IP address).
-   ![Main Menu](image_823b4d.png)
+   ![Main Menu](Pasted%20image%2020260808000032.png)
 
 2. Enter the number of the LAN interface: `2`.
-   ![Select LAN Interface](image_823df2.png)
+   ![Select LAN Interface](Pasted%20image%2020260808000314.png)
 
 3. *Configure IPv4 address LAN interface via DHCP?* Type `n`.
-   ![Disable DHCP on LAN](image_823df7.png)
+   ![Disable DHCP on LAN](Pasted%20image%2020260808000330.png)
 
 4. *Enter the new LAN IPv4 address:* Type your desired gateway IP, for example `192.168.20.1`.
-   ![Enter LAN IP](image_823e10.png)
+   ![Enter LAN IP](Pasted%20image%2020260808000519.png)
 
 5. *Enter the new LAN IPv4 subnet bit count:* Type `24`.
-   ![Enter Subnet Mask](image_82426b.png)
+   ![Enter Subnet Mask](Pasted%20image%2020260808000534.png)
 
 6. *For a WAN, enter the new LAN IPv4 upstream gateway address:* Press `Enter` for none.
-   ![Upstream Gateway](image_82426e.png)
+   ![Upstream Gateway](Pasted%20image%2020260808000554.png)
 
 7. *Configure IPv6 address LAN interface via DHCP6?* Type `n`.
-   ![Disable DHCP6](image_824272.png)
+   ![Disable DHCP6](Pasted%20image%2020260808000629.png)
 
 8. *Enter the new LAN IPv6 address:* Press `Enter` for none.
-   ![Skip IPv6 Address](image_82428c.png)
+   ![Skip IPv6 Address](Pasted%20image%2020260808000706.png)
 
 9. *Do you want to enable the DHCP server on LAN?* Type `y`.
-   ![Enable DHCP Server](image_824572.png)
+   ![Enable DHCP Server](Pasted%20image%2020260808000809.png)
 
 10. *Enter the start address of the IPv4 client address range:* Type `192.168.20.100`.
-    ![DHCP Start Range](image_824576.png)
+    ![DHCP Start Range](Pasted%20image%2020260808000949.png)
 
 11. *Enter the end address of the IPv4 client address range:* Type `192.168.20.200`.
-    ![DHCP End Range](image_824579.png)
+    ![DHCP End Range](Pasted%20image%2020260808001043.png)
 
 12. *Do you want to revert to HTTP as the webConfigurator protocol?* Type `y`.
-    ![Revert to HTTP](image_824591.png)
+    ![Revert to HTTP](Pasted%20image%2020260808001124.png)
 
 ---
 
@@ -122,7 +122,7 @@ We will now configure a custom subnet (e.g., `192.168.20.1/24`) and enable the D
 > To access the configuration page:
 > 1. You must create a client Virtual Machine (e.g., Windows 10/11, Ubuntu Desktop) in Proxmox.
 > 2. Assign this client VM's network adapter to the **`vmbr1` (LAN)** bridge.
-> 3. Open a web browser (Google Chrome, Mozilla Firefox, etc.) inside this client VM and navigate to the LAN IP.
+> 3. Open a web browser inside this client VM and navigate to the LAN IP.
 
 1. Using your client VM on `vmbr1`, log into the pfSense WebGUI at `http://192.168.20.1`. (Default credentials: `admin` / `pfsense`).
 2. Follow the Initial Setup Wizard (DNS, Timezone, Admin Password).
@@ -161,6 +161,6 @@ To access your isolated network remotely:
 ---
 
 ## Step 8: Validation
-1. Disconnect a personal device (like a smartphone or laptop) from your local network.
+1. Disconnect a personal device from your local network.
 2. Connect to Tailscale on that device.
-3. Access the pfSense WebGUI via `http://192.168.20.1` to confirm your setup is fully operational and routing correctly through the VPN.
+3. Access the pfSense WebGUI via `http://192.168.20.1` to confirm your setup is fully operational.
