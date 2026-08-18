@@ -82,31 +82,22 @@ We will now configure a custom subnet (e.g., `192.168.20.1/24`) and enable the D
    ![Disable DHCP on LAN](<images/Pasted image 20260808000809.png>)
 
 4. *Enter the new LAN IPv4 address:* Type your desired gateway IP, for example `192.168.20.1`.
-   ![Enter LAN IP](<images/Pasted image 20260808000534.png>)
+   ![Enter LAN IP](<images/Pasted image 20260808000949.png>)
 
 5. *Enter the new LAN IPv4 subnet bit count:* Type `24`.
-   ![Enter Subnet Mask](<images/Pasted image 20260808000809.png>)
+   ![Enter Subnet Mask](<images/Pasted image 20260808001043.png>)
 
 6. *Do you want to enable the DHCP server on LAN?* Type `y`.
-   ![Enable DHCP Server](<images/Pasted image 20260808000949.png>)
+   ![Enable DHCP Server](<images/Pasted image 20260808001216.png>)
 
 7. *Enter the start address of the IPv4 client address range:* Type `192.168.20.100`.
-   ![DHCP Start Range](<images/Pasted image 20260808001043.png>)
+   ![DHCP Start Range](<images/Pasted image 20260808001403.png>)
 
 8. *Enter the end address of the IPv4 client address range:* Type `192.168.20.200`.
-   ![DHCP End Range](<images/Pasted image 20260808001124.png>)
+   ![DHCP End Range](<images/Pasted image 20260808001452.png>)
 
 9. *Do you want to revert to HTTP as the webConfigurator protocol?* Type `y`.
-   ![Revert to HTTP](<images/Pasted image 20260808001124.png>)
-
-10. *Enter the start address of the IPv4 client address range:* Type `192.168.20.100`.
-    ![DHCP Start Range](<images/Pasted image 20260808000949.png>)
-
-11. *Enter the end address of the IPv4 client address range:* Type `192.168.20.200`.
-    ![DHCP End Range](<images/Pasted image 20260808001043.png>)
-
-12. *Do you want to revert to HTTP as the webConfigurator protocol?* Type `y`.
-    ![Revert to HTTP](<images/Pasted image 20260808001124.png>)
+   ![Revert to HTTP](<images/Pasted image 20260808000706.png>)
 ---
 
 ## Step 6: WebGUI Initial Setup
