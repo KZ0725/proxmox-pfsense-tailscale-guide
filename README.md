@@ -141,7 +141,7 @@ To access your isolated network remotely:
 
 ### 7.4 Firewall Rules for Tailscale
 1. In pfSense, go to **Firewall > Rules > Tailscale**.
-2. Click **Add**. Set Action to `Pass`, Protocol to `Any`, Source to `Any`, Destination to `LAN net`.
+2. Click **Add**. Set Action to `Pass`, Protocol to `Any`, Source to `Any`, Destination to `LAN`.
 3. Click **Save** and **Apply Changes**.
 
 ---
