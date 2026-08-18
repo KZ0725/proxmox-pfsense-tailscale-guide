@@ -4,8 +4,6 @@ Ce document présente l'architecture réseau logique du montage complet.
 
 ## Schéma (Mermaid)
 
-Vous pouvez visualiser ce schéma nativement sur GitHub (qui supporte la syntaxe Mermaid).
-
 ```mermaid
 graph TD
     subgraph "Site Distant (Extérieur)"
@@ -17,7 +15,7 @@ graph TD
         TS{Réseau Tailscale}
     end
 
-    subgraph "Domicile / Entreprise"
+    subgraph "Domicile"
         BOX[Box FAI / Routeur Internet]
         
         subgraph "Serveur Proxmox VE"
