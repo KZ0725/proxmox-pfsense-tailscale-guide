@@ -55,21 +55,21 @@ Upon reboot, pfSense will prompt you to assign network interfaces.
 
 1. *VLANs set up?* Enter `n`.
 2. *Enter the WAN interface name:* Type `vtnet0` and press `Enter`.
-   ![Assign WAN](<Pasted image 20260807235645.png>)
+   ![Assign WAN](<images/Pasted image 20260807235645.png>)
 
 3. *Enter the LAN interface name:* Type `vtnet1` and press `Enter`.
-   ![Assign LAN](<Pasted image 20260807235714.png>)
+   ![Assign LAN](<images/Pasted image 20260807235714.png>)
 
 4. *Enter the Optional 1 interface name:* Press `Enter` to skip. We are building a single-subnet environment, so no optional interfaces are needed.
-   ![Skip OPT1](<Pasted image 20260807235818.png>)
+   ![Skip OPT1](<images/Pasted image 20260807235818.png>)
 
 5. *Enter the Optional 2 interface name:* Press `Enter` to skip again.
-   ![Skip OPT2](<Pasted image 20260807235859.png>)
+   ![Skip OPT2](<images/Pasted image 20260807235859.png>)
 
 6. The system will display the assigned interfaces. Verify WAN is mapped to `vtnet0` and LAN is mapped to `vtnet1`. *Proceed?* Type `y`.
    
    > **Note:** Depending on your Proxmox VM configuration, you might see extra interfaces like `OPT1` or `OPT2`. If you are only configuring a WAN and a single LAN, you can safely ignore them.
-   ![Verify Interfaces](<Pasted image 20260807235919.png>)
+   ![Verify Interfaces](<images/Pasted image 20260807235919.png>)
 
 ---
 
@@ -77,41 +77,40 @@ Upon reboot, pfSense will prompt you to assign network interfaces.
 We will now configure a custom subnet (e.g., `192.168.20.1/24`) and enable the DHCP server for the LAN.
 
 1. From the main pfSense menu, enter option `2` (Set interface(s) IP address).
-   ![Main Menu](<Pasted image 20260808000032.png>)
+   ![Main Menu](<images/Pasted image 20260808000032.png>)
 
 2. Enter the number of the LAN interface: `2`.
-   ![Select LAN Interface](<Pasted image 20260808000314.png>)
+   ![Select LAN Interface](<images/Pasted image 20260808000314.png>)
 
 3. *Configure IPv4 address LAN interface via DHCP?* Type `n`.
-   ![Disable DHCP on LAN](<Pasted image 20260808000330.png>)
+   ![Disable DHCP on LAN](<images/Pasted image 20260808000330.png>)
 
 4. *Enter the new LAN IPv4 address:* Type your desired gateway IP, for example `192.168.20.1`.
-   ![Enter LAN IP](<Pasted image 20260808000519.png>)
+   ![Enter LAN IP](<images/Pasted image 20260808000519.png>)
 
 5. *Enter the new LAN IPv4 subnet bit count:* Type `24`.
-   ![Enter Subnet Mask](<Pasted image 20260808000534.png>)
+   ![Enter Subnet Mask](<images/Pasted image 20260808000534.png>)
 
 6. *For a WAN, enter the new LAN IPv4 upstream gateway address:* Press `Enter` for none.
-   ![Upstream Gateway](<Pasted image 20260808000554.png>)
+   ![Upstream Gateway](<images/Pasted image 20260808000554.png>)
 
 7. *Configure IPv6 address LAN interface via DHCP6?* Type `n`.
-   ![Disable DHCP6](<Pasted image 20260808000629.png>)
+   ![Disable DHCP6](<images/Pasted image 20260808000629.png>)
 
 8. *Enter the new LAN IPv6 address:* Press `Enter` for none.
-   ![Skip IPv6 Address](<Pasted image 20260808000706.png>)
+   ![Skip IPv6 Address](<images/Pasted image 20260808000706.png>)
 
 9. *Do you want to enable the DHCP server on LAN?* Type `y`.
-   ![Enable DHCP Server](<Pasted image 20260808000809.png>)
+   ![Enable DHCP Server](<images/Pasted image 20260808000809.png>)
 
 10. *Enter the start address of the IPv4 client address range:* Type `192.168.20.100`.
-    ![DHCP Start Range](<Pasted image 20260808000949.png>)
+    ![DHCP Start Range](<images/Pasted image 20260808000949.png>)
 
 11. *Enter the end address of the IPv4 client address range:* Type `192.168.20.200`.
-    ![DHCP End Range](<Pasted image 20260808001043.png>)
+    ![DHCP End Range](<images/Pasted image 20260808001043.png>)
 
 12. *Do you want to revert to HTTP as the webConfigurator protocol?* Type `y`.
-    ![Revert to HTTP](<Pasted image 20260808001124.png>)
-
+    ![Revert to HTTP](<images/Pasted image 20260808001124.png>)
 ---
 
 ## Step 6: WebGUI Initial Setup
