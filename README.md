@@ -1,6 +1,6 @@
 # Complete Guide: pfSense & Tailscale on Proxmox
 
-This guide provides a linear, step-by-step process to deploy pfSense as a Virtual Machine on Proxmox VE, and configure Tailscale for secure remote access. 
+This guide provides a linear, step-by-step process to deploy pfSense as a Virtual Machine on Proxmox VE, and configure Tailscale for secure remote access using a single LAN subnet.
 
 **Validated for:** Proxmox VE 8.x | pfSense CE 2.7.x / Plus 23.x | Tailscale 1.5x+
 
@@ -23,9 +23,6 @@ Before creating the VM, you need virtual switches (Linux Bridges) to route traff
    * **Comment:** `Isolated-LAN`
 4. Click **Apply Configuration**.
 
-![Proxmox Network Interfaces showing vmbr0 and vmbr1](assets/01-proxmox-network-bridges.png)
-*(Screenshot: Show the Proxmox Network tab with both vmbr0 and vmbr1 visible)*
-
 > **[WARNING]** 
 > Never assign your Proxmox management IP (GUI) to a bridge directly exposed to the public Internet without an upstream hardware firewall.
 
@@ -44,9 +41,6 @@ Before creating the VM, you need virtual switches (Linux Bridges) to route traff
     * Model: `VirtIO`.
     * Uncheck *Firewall*.
 
-![Proxmox VM Hardware Configuration](assets/02-proxmox-vm-hardware.png)
-*(Screenshot: Show the VM Hardware tab highlighting the two Network Devices)*
-
 ---
 
 ## Step 3: Install pfSense
@@ -54,79 +48,110 @@ Before creating the VM, you need virtual switches (Linux Bridges) to route traff
 2. Boot the installer and select **Auto (ZFS)** for partitioning. 
 3. Proceed with the default settings and reboot once finished.
 
-![pfSense ZFS Installation](assets/03-pfsense-zfs-install.png)
-*(Screenshot: Show the pfSense installer screen selecting Auto ZFS)*
-
 ---
 
 ## Step 4: Interface Assignment (Console)
 Upon reboot, pfSense will prompt you to assign network interfaces.
 
 1. *VLANs set up?* Enter `n`.
-2. *Enter the WAN interface name:* Type `vtnet0`.
-3. *Enter the LAN interface name:* Type `vtnet1`.
-4. *Proceed?* Type `y`.
+2. *Enter the WAN interface name:* Type `vtnet0` and press `Enter`.
+   ![Assign WAN](image_823aea.png)
 
-![pfSense Console Interface Assignment](assets/04-pfsense-console-interfaces.png)
-*(Screenshot: Show the console screen successfully displaying the assigned WAN and LAN IP addresses)*
+3. *Enter the LAN interface name:* Type `vtnet1` and press `Enter`.
+   ![Assign LAN](image_823aee.png)
+
+4. *Enter the Optional 1 interface name:* Press `Enter` to skip. We are building a single-subnet environment, so no optional interfaces are needed.
+   ![Skip OPT1](image_823af1.png)
+
+5. *Enter the Optional 2 interface name:* Press `Enter` to skip again.
+   ![Skip OPT2](image_823b09.png)
+
+6. The system will display the assigned interfaces. Verify WAN is mapped to `vtnet0` and LAN is mapped to `vtnet1`. *Proceed?* Type `y`.
+   
+   > **Note:** Depending on your Proxmox VM configuration, you might see extra interfaces like `OPT1` or `OPT2`. If you are only configuring a WAN and a single LAN, you can safely ignore them.
+   ![Verify Interfaces](image_823b49.png)
 
 ---
 
-## Step 5: WebGUI Initial Setup
-1. Log into the pfSense WebGUI at `https://192.168.1.1` (Default: `admin` / `pfsense`).
+## Step 5: Configure LAN IP Address & DHCP (Console)
+We will now configure a custom subnet (e.g., `192.168.20.1/24`) and enable the DHCP server for the LAN.
+
+1. From the main pfSense menu, enter option `2` (Set interface(s) IP address).
+   ![Main Menu](image_823b4d.png)
+
+2. Enter the number of the LAN interface: `2`.
+   ![Select LAN Interface](image_823df2.png)
+
+3. *Configure IPv4 address LAN interface via DHCP?* Type `n`.
+   ![Disable DHCP on LAN](image_823df7.png)
+
+4. *Enter the new LAN IPv4 address:* Type your desired gateway IP, for example `192.168.20.1`.
+   ![Enter LAN IP](image_823e10.png)
+
+5. *Enter the new LAN IPv4 subnet bit count:* Type `24`.
+   ![Enter Subnet Mask](image_82426b.png)
+
+6. *For a WAN, enter the new LAN IPv4 upstream gateway address:* Press `Enter` for none.
+   ![Upstream Gateway](image_82426e.png)
+
+7. *Configure IPv6 address LAN interface via DHCP6?* Type `n`.
+   ![Disable DHCP6](image_824272.png)
+
+8. *Enter the new LAN IPv6 address:* Press `Enter` for none.
+   ![Skip IPv6 Address](image_82428c.png)
+
+9. *Do you want to enable the DHCP server on LAN?* Type `y`.
+   ![Enable DHCP Server](image_824572.png)
+
+10. *Enter the start address of the IPv4 client address range:* Type `192.168.20.100`.
+    ![DHCP Start Range](image_824576.png)
+
+11. *Enter the end address of the IPv4 client address range:* Type `192.168.20.200`.
+    ![DHCP End Range](image_824579.png)
+
+12. *Do you want to revert to HTTP as the webConfigurator protocol?* Type `y`.
+    ![Revert to HTTP](image_824591.png)
+
+---
+
+## Step 6: WebGUI Initial Setup
+1. Log into the pfSense WebGUI at `http://192.168.20.1` (Default credentials: `admin` / `pfsense`).
 2. Follow the Initial Setup Wizard (DNS, Timezone, Admin Password).
-3. Navigate to **Firewall > Rules > LAN**.
-4. Ensure the `Default allow LAN to any rule` exists.
-
-![pfSense LAN Firewall Rules](assets/05-pfsense-lan-rules.png)
-*(Screenshot: Show the Firewall LAN rules page with the default allow rule)*
+3. Navigate to **Firewall > Rules > LAN** to ensure the default allow rule is present.
 
 ---
 
-## Step 6: Install & Configure Tailscale
+## Step 7: Install & Configure Tailscale
 
-### 6.1 Install the Package
+### 7.1 Install the Package
 1. Navigate to **System > Package Manager > Available Packages**.
 2. Search for `Tailscale` and click **Install**.
 
-![pfSense Package Manager Tailscale](assets/06-pfsense-package-tailscale.png)
-*(Screenshot: Show Tailscale successfully installed in the Package Manager)*
-
-### 6.2 Authenticate Node
+### 7.2 Authenticate Node
 1. Go to your **Tailscale Admin Console** > **Settings > Keys**.
 2. Generate an **Auth key** (Reusable: *No*, Ephemeral: *No*, Pre-authorized: *Yes*).
 3. In pfSense, navigate to **VPN > Tailscale > Authentication**.
 4. Paste the Key and click **Save**.
 
-![Tailscale Authentication in pfSense](assets/07-tailscale-auth-key.png)
-*(Screenshot: Show the pfSense Tailscale authentication page)*
+### 7.3 Subnet Routing Configuration
+To access your isolated network remotely:
 
-### 6.3 Subnet Routing Configuration
 1. In pfSense, go to **VPN > Tailscale > Settings**.
 2. Check **Enable Tailscale**.
-3. Under *Advertised Routes*, enter your LAN subnet: `192.168.1.0/24`. Click **Save**.
+3. Under *Advertised Routes*, enter your specific LAN subnet: `192.168.20.0/24`.
+4. Click **Save**.
+5. Return to the **Tailscale Admin Console** > **Machines**.
+6. Click the `...` menu on your pfSense node > **Edit route settings**.
+7. Toggle on `192.168.20.0/24` under *Subnet routes*.
 
-![pfSense Tailscale Advertised Routes](assets/08-pfsense-tailscale-routes.png)
-*(Screenshot: Show the Advertised Routes field filled in pfSense)*
-
-4. Return to the **Tailscale Admin Console** > **Machines**.
-5. Click the `...` menu on your pfSense node > **Edit route settings**.
-6. Toggle on `192.168.1.0/24` to approve the route.
-
-![Tailscale Admin Console Subnet Approval](assets/09-tailscale-console-approve.png)
-*(Screenshot: Show the Tailscale web console where you toggle/approve the subnet)*
-
-### 6.4 Firewall Rules for Tailscale
+### 7.4 Firewall Rules for Tailscale
 1. In pfSense, go to **Firewall > Rules > Tailscale**.
 2. Click **Add**. Set Action to `Pass`, Protocol to `Any`, Source to `Any`, Destination to `LAN net`.
 3. Click **Save** and **Apply Changes**.
 
-![Tailscale Firewall Rules](assets/10-tailscale-firewall-rule.png)
-*(Screenshot: Show the pass rule on the Tailscale firewall tab)*
-
 ---
 
-## Step 7: Validation
+## Step 8: Validation
 1. Disconnect a personal device from your local network.
 2. Connect to Tailscale on that device.
-3. Access the pfSense WebGUI via `https://192.168.1.1` to confirm your setup is fully operational.
+3. Access the pfSense WebGUI via `http://192.168.20.1` to confirm your setup is fully operational.
