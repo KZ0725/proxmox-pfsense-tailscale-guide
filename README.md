@@ -128,25 +128,30 @@ We will now configure a custom subnet (e.g., `192.168.20.1/24`) and enable the D
 3. In pfSense, navigate to **VPN > Tailscale > Authentication**.
 4. Paste the Key and click **Save**.
 
-### 7.3 Subnet Routing Configuration
-To access your isolated network remotely:
+## 7.3 Subnet Routing Configuration
+To access both your isolated pfSense network and your Proxmox host/WAN network remotely:
 
 1. In pfSense, go to **VPN > Tailscale > Settings**.
 2. Check **Enable Tailscale**.
-3. Under *Advertised Routes*, enter your specific LAN subnet: `192.168.20.0/24`.
-4. Click **Save**.
-5. Return to the **Tailscale Admin Console** > **Machines**.
-6. Click the `...` menu on your pfSense node > **Edit route settings**.
-7. Toggle on `192.168.20.0/24` under *Subnet routes*.
+3. Under *Advertised Routes*, enter both subnets (e.g., `192.168.20.0/24` for your LAN and `192.168.1.0/24` for your Proxmox/WAN network).
+   ![Advertised Routes](<images/Capture d’écran 2026-08-18 200541.png>)
 
-### 7.4 Firewall Rules for Tailscale
+4. Click **Save**.
+5. Return to the **Tailscale Admin Console > Machines**.
+6. Click the `...` menu on your pfSense node > **Edit route settings**.
+7. Toggle on both subnets under *Subnet routes*.
+   ![Approve Routes](<images/Capture d’écran 2026-08-18 200414.png>)
+
+---
+
+## 7.4 Firewall Rules for Tailscale
 1. In pfSense, go to **Firewall > Rules > Tailscale**.
-2. Click **Add**. Set Action to `Pass`, Protocol to `Any`, Source to `Any`, Destination to `LAN`.
+2. Click **Add**. Set Action to `Pass`, Protocol to `Any`, Source to `Any`, Destination to `LAN net` (and repeat or adjust for your WAN/Proxmox subnet if needed).
 3. Click **Save** and **Apply Changes**.
 
 ---
 
 ## Step 8: Validation
-1. Disconnect a personal device from your local network.
+1. Disconnect a personal device from your local network (e.g., use your mobile data).
 2. Connect to Tailscale on that device.
-3. Access the pfSense WebGUI via `http://192.168.20.1` to confirm your setup is fully operational.
+3. Access your pfSense WebGUI and your Proxmox host interface remotely to confirm everything is fully operational.
