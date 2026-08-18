@@ -79,7 +79,7 @@ We will now configure a custom subnet (e.g., `192.168.20.1/24`) and enable the D
    ![Select LAN Interface](<images/Pasted image 20260808000330.png>)
 
 3. *Configure IPv4 address LAN interface via DHCP?* Type `n`.
-   ![Disable DHCP on LAN](<images/Pasted image 20260808000519.png>)
+   ![Disable DHCP on LAN](<images/Pasted image 20260808000809.png>)
 
 4. *Enter the new LAN IPv4 address:* Type your desired gateway IP, for example `192.168.20.1`.
    ![Enter LAN IP](<images/Pasted image 20260808000534.png>)
