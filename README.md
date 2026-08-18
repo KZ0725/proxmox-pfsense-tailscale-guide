@@ -54,23 +54,24 @@ Before creating the VM, you need virtual switches (Linux Bridges) to route traff
 Upon reboot, pfSense will prompt you to assign network interfaces.
 
 1. *VLANs set up?* Enter `n`.
+   ![VLAN Setup](<images/Pasted image 20260807235645.png>)
+
 2. *Enter the WAN interface name:* Type `vtnet0` and press `Enter`.
-   ![Assign WAN](<images/Pasted image 20260807235645.png>)
+   ![Assign WAN](<images/Pasted image 20260807235714.png>)
 
 3. *Enter the LAN interface name:* Type `vtnet1` and press `Enter`.
-   ![Assign LAN](<images/Pasted image 20260807235714.png>)
+   ![Assign LAN](<images/Pasted image 20260807235818.png>)
 
 4. *Enter the Optional 1 interface name:* Press `Enter` to skip. We are building a single-subnet environment, so no optional interfaces are needed.
-   ![Skip OPT1](<images/Pasted image 20260807235818.png>)
+   ![Skip OPT1](<images/Pasted image 20260807235859.png>)
 
 5. *Enter the Optional 2 interface name:* Press `Enter` to skip again.
-   ![Skip OPT2](<images/Pasted image 20260807235859.png>)
+   ![Skip OPT2](<images/Pasted image 20260807235919.png>)
 
 6. The system will display the assigned interfaces. Verify WAN is mapped to `vtnet0` and LAN is mapped to `vtnet1`. *Proceed?* Type `y`.
    
    > **Note:** Depending on your Proxmox VM configuration, you might see extra interfaces like `OPT1` or `OPT2`. If you are only configuring a WAN and a single LAN, you can safely ignore them.
-   ![Verify Interfaces](<images/Pasted image 20260807235919.png>)
-
+   ![Verify Interfaces](<images/Pasted image 20260808000032.png>)
 ---
 
 ## Step 5: Configure LAN IP Address & DHCP (Console)
