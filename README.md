@@ -144,13 +144,6 @@ To access both your isolated pfSense network and your Proxmox host/WAN network r
 
 ---
 
-## 7.4 Firewall Rules for Tailscale
-1. In pfSense, go to **Firewall > Rules > Tailscale**.
-2. Click **Add**. Set Action to `Pass`, Protocol to `Any`, Source to `Any`, Destination to `LAN net` (and repeat or adjust for your WAN/Proxmox subnet if needed).
-3. Click **Save** and **Apply Changes**.
-
----
-
 ## Step 8: Validation
 1. Disconnect a personal device from your local network (e.g., use your mobile data).
 2. Connect to Tailscale on that device.
