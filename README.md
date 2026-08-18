@@ -62,38 +62,39 @@ Upon reboot, pfSense will prompt you to assign network interfaces.
 3. *Enter the LAN interface name:* Type `vtnet1` and press `Enter`.
    ![Assign LAN](<images/Pasted image 20260807235818.png>)
 
-6. The system will display the assigned interfaces. Verify WAN is mapped to `vtnet0` and LAN is mapped to `vtnet1`. *Proceed?* Type `y`.
+4. The system will display the assigned interfaces. Verify WAN is mapped to `vtnet0` and LAN is mapped to `vtnet1`. *Proceed?* Type `y`.
    
    > **Note:** Depending on your Proxmox VM configuration, you might see extra interfaces like `OPT1` or `OPT2`. If you are only configuring a WAN and a single LAN, you can safely ignore them.
    ![Verify Interfaces](<images/Pasted image 20260808000032.png>)
+
 ---
 
 ## Step 5: Configure LAN IP Address & DHCP (Console)
 We will now configure a custom subnet (e.g., `192.168.20.1/24`) and enable the DHCP server for the LAN.
 
 1. From the main pfSense menu, enter option `2` (Set interface(s) IP address).
-   ![Main Menu](<images/Pasted image 20260808000032.png>)
+   ![Main Menu](<images/Pasted image 20260808000314.png>)
 
 2. Enter the number of the LAN interface: `2`.
-   ![Select LAN Interface](<images/Pasted image 20260808000314.png>)
+   ![Select LAN Interface](<images/Pasted image 20260808000330.png>)
 
 3. *Configure IPv4 address LAN interface via DHCP?* Type `n`.
-   ![Disable DHCP on LAN](<images/Pasted image 20260808000330.png>)
+   ![Disable DHCP on LAN](<images/Pasted image 20260808000519.png>)
 
 4. *Enter the new LAN IPv4 address:* Type your desired gateway IP, for example `192.168.20.1`.
-   ![Enter LAN IP](<images/Pasted image 20260808000519.png>)
+   ![Enter LAN IP](<images/Pasted image 20260808000534.png>)
 
 5. *Enter the new LAN IPv4 subnet bit count:* Type `24`.
-   ![Enter Subnet Mask](<images/Pasted image 20260808000534.png>)
+   ![Enter Subnet Mask](<images/Pasted image 20260808000809.png>)
 
 6. *Do you want to enable the DHCP server on LAN?* Type `y`.
-   ![Enable DHCP Server](<images/Pasted image 20260808000809.png>)
+   ![Enable DHCP Server](<images/Pasted image 20260808000949.png>)
 
 7. *Enter the start address of the IPv4 client address range:* Type `192.168.20.100`.
-   ![DHCP Start Range](<images/Pasted image 20260808000949.png>)
+   ![DHCP Start Range](<images/Pasted image 20260808001043.png>)
 
 8. *Enter the end address of the IPv4 client address range:* Type `192.168.20.200`.
-   ![DHCP End Range](<images/Pasted image 20260808001043.png>)
+   ![DHCP End Range](<images/Pasted image 20260808001124.png>)
 
 9. *Do you want to revert to HTTP as the webConfigurator protocol?* Type `y`.
    ![Revert to HTTP](<images/Pasted image 20260808001124.png>)
