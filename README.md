@@ -86,17 +86,17 @@ We will now configure a custom subnet (e.g., `192.168.20.1/24`) and enable the D
 5. *Enter the new LAN IPv4 subnet bit count:* Type `24`.
    ![Enter Subnet Mask](<images/Pasted image 20260808000534.png>)
 
-6. *For a WAN, enter the new LAN IPv4 upstream gateway address:* Press `Enter` for none.
-   ![Upstream Gateway](<images/Pasted image 20260808000554.png>)
-
-7. *Configure IPv6 address LAN interface via DHCP6?* Type `n`.
-   ![Disable DHCP6](<images/Pasted image 20260808000629.png>)
-
-8. *Enter the new LAN IPv6 address:* Press `Enter` for none.
-   ![Skip IPv6 Address](<images/Pasted image 20260808000706.png>)
-
-9. *Do you want to enable the DHCP server on LAN?* Type `y`.
+6. *Do you want to enable the DHCP server on LAN?* Type `y`.
    ![Enable DHCP Server](<images/Pasted image 20260808000809.png>)
+
+7. *Enter the start address of the IPv4 client address range:* Type `192.168.20.100`.
+   ![DHCP Start Range](<images/Pasted image 20260808000949.png>)
+
+8. *Enter the end address of the IPv4 client address range:* Type `192.168.20.200`.
+   ![DHCP End Range](<images/Pasted image 20260808001043.png>)
+
+9. *Do you want to revert to HTTP as the webConfigurator protocol?* Type `y`.
+   ![Revert to HTTP](<images/Pasted image 20260808001124.png>)
 
 10. *Enter the start address of the IPv4 client address range:* Type `192.168.20.100`.
     ![DHCP Start Range](<images/Pasted image 20260808000949.png>)
