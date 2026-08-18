@@ -115,7 +115,16 @@ We will now configure a custom subnet (e.g., `192.168.20.1/24`) and enable the D
 ---
 
 ## Step 6: WebGUI Initial Setup
-1. Log into the pfSense WebGUI at `http://192.168.20.1` (Default credentials: `admin` / `pfsense`).
+
+> **[WARNING] Web Interface Access Limitation**
+> By default, pfSense blocks all incoming traffic on the WAN interface for security reasons. You **cannot** access the WebGUI directly from your physical host network or the Internet.
+> 
+> To access the configuration page:
+> 1. You must create a client Virtual Machine (e.g., Windows 10/11, Ubuntu Desktop) in Proxmox.
+> 2. Assign this client VM's network adapter to the **`vmbr1` (LAN)** bridge.
+> 3. Open a web browser (Google Chrome, Mozilla Firefox, etc.) inside this client VM and navigate to the LAN IP.
+
+1. Using your client VM on `vmbr1`, log into the pfSense WebGUI at `http://192.168.20.1`. (Default credentials: `admin` / `pfsense`).
 2. Follow the Initial Setup Wizard (DNS, Timezone, Admin Password).
 3. Navigate to **Firewall > Rules > LAN** to ensure the default allow rule is present.
 
@@ -152,6 +161,6 @@ To access your isolated network remotely:
 ---
 
 ## Step 8: Validation
-1. Disconnect a personal device from your local network.
+1. Disconnect a personal device (like a smartphone or laptop) from your local network.
 2. Connect to Tailscale on that device.
-3. Access the pfSense WebGUI via `http://192.168.20.1` to confirm your setup is fully operational.
+3. Access the pfSense WebGUI via `http://192.168.20.1` to confirm your setup is fully operational and routing correctly through the VPN.
