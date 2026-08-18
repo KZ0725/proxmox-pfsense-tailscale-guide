@@ -23,7 +23,7 @@ graph TD
         subgraph "Serveur Proxmox VE"
             BR0[Bridge WAN : vmbr0]
             
-            subgraph "pfSense VM"
+            subgraph PFS["pfSense VM"]
                 WAN[Interface WAN : vtnet0]
                 LAN[Interface LAN : vtnet1 <br> 192.168.20.1]
             end
@@ -43,11 +43,5 @@ graph TD
     BR1 --> CVM
 
     %% Tunnel Tailscale
-    RD -. "Tunnel Sécurisé (Tailscale)" .- TS
-    TS -. "Routage du sous-réseau 192.168.20.0/24" .- pfSense VM
-```
-
-## Description des flux
-
-1. **Trafic Local :** La `Client VM` navigue sur Internet en passant par `vmbr1` -> `pfSense (LAN)` -> `pfSense (WAN)` -> `vmbr0` -> `Box FAI` -> `Internet`.
-2. **Trafic Distant (VPN) :** L'`Appareil Distant` se connecte à Tailscale. Le trafic à destination de `192.168.20.x` est chiffré, envoyé au nœud Tailscale de la VM pfSense, puis transféré vers la `Client VM` sur le `vmbr1`. L'interface WAN de pfSense n'expose aucun port sur Internet.
+    RD -. "Tunnel Sécurisé (Tailscale)" .-> TS
+    TS -. "Routage du sous-réseau 192.168.20.0/24" .-> LAN
